@@ -1,0 +1,62 @@
+@import "../../Styles/mixins.scss";
+
+.languageSelector {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+}
+
+@include small {
+  .languageSelector {
+    margin-right: 37px;
+  }
+}
+
+.languageSelector .currentOption {
+  min-width: 63px;
+}
+
+.languageSelector>svg {
+  width: 12px;
+  height: 12px;
+  fill: var(--white);
+}
+
+.languageSelector .menu {
+  position: absolute;
+  left: -11px;
+  top: 40px;
+  background-color: var(--black);
+  z-index: 10;
+  opacity: 0;
+  pointer-events: none;
+
+  &.active {
+    opacity: 1;
+    pointer-events: all;
+  }
+}
+
+.languageSelector .menu .option {
+  cursor: pointer;
+  padding: 8px 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  &:hover {
+    color: var(--black);
+    background-color: var(--white);
+  }
+}
+
+.option>span {
+  width: 70px;
+}
+
+.option>img {
+  width: 22px;
+  object-fit: contain;
+}

@@ -1,0 +1,45 @@
+@import "../../../Styles/mixins.scss";
+
+.slider {
+  width: 100%;
+  display: flex;
+  gap: 40px;
+  margin-bottom: 100px;
+  padding-bottom: 10px;
+}
+
+@include large {
+  .slider {
+    gap: 20px;
+  }
+}
+
+@include medium {
+  .slider {
+    flex-direction: column;
+    align-items: center;
+    overflow: visible;
+    gap: 40px;
+  }
+}
+
+.slider::-webkit-scrollbar {
+  display: none;
+}
+
+// [Member Cards]
+.slider>* {
+  min-width: calc((100% / 3 - 40px) + (40px / 3));
+}
+
+@include medium {
+  .slider>* {
+    width: 360px;
+  }
+}
+
+@media (max-width: 500px) {
+  .slider>* {
+    min-width: 100%;
+  }
+}

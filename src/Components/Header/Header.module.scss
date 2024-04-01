@@ -1,0 +1,99 @@
+@import "../../Styles/mixins";
+
+.header {
+  padding: 20px 14px 20px 14px;
+  margin-top: 0px;
+  border-bottom: 1px var(--medium-light-gray) transparent;
+}
+
+@include medium {
+  .header {
+    padding: 10px 0 14px 10px;
+  }
+}
+
+@include small {
+  .header {
+    padding: 10px 5px 10px 5px;
+  }
+}
+
+.container {
+  width: calc(var(--container-width) + 2%);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 26% 1fr;
+}
+
+@include large {
+  .container {
+    grid-template-columns: 17.5% 1fr;
+  }
+}
+
+@include medium {
+  .container {
+    grid-template-columns: unset;
+  }
+}
+
+@include small {
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: var(--container-mobile-width);
+  }
+}
+
+.container h1 {
+  width: fit-content;
+  font-size: 1.5rem;
+  color: var(--black);
+
+  & a {
+    color: var(--black);
+  }
+}
+
+.headerContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@include medium {
+  .headerContent {
+    margin-top: 10px;
+  }
+}
+
+@include small {
+  .headerContent {
+    display: none;
+  }
+}
+
+.mobileNav {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  display: none;
+  transition: opacity .2s;
+
+  &:hover {
+    opacity: .7;
+  }
+}
+
+@include small {
+  .mobileNav {
+    display: block;
+  }
+}
+
+.mobileNav>svg {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}

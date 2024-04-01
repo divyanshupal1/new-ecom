@@ -1,0 +1,18 @@
+.images {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+  top: 3px;
+}
+
+.images a {
+  user-select: none;
+  position: relative;
+}
+
+.images img {
+  width: 42px;
+  height: 28px;
+  object-fit: contain;
+}

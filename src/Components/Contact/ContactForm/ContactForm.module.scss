@@ -1,0 +1,113 @@
+@import "../../../Styles/mixins.scss";
+
+.contactForm {
+  flex: 1;
+  width: 800px;
+  box-shadow: 0 1px 13px 0 #0000000D;
+  padding: 40px 32px;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+}
+
+@include medium {
+  .contactForm {
+    width: 100%;
+  }
+}
+
+.inputs {
+  flex: 1;
+  margin-bottom: 20px;
+}
+
+.wrapper {
+  margin-bottom: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.input {
+  flex: 1;
+}
+
+.input>input,
+.inputs>textarea {
+  border: none;
+  outline: none;
+  width: 235px;
+  height: 50px;
+  border-radius: 4px;
+  padding: 10px;
+  width: 100%;
+  background-color: var(--very-light-gray2);
+  border: solid 2px var(--very-light-gray2);
+
+  &:hover,
+  &:focus {
+    border-color: var(--medium-light-gray);
+  }
+}
+
+.input>input::placeholder {
+  color: var(--dark-gray);
+}
+
+.input:has([required]) {
+  position: relative;
+
+  .star {
+    position: absolute;
+    top: 50%;
+    translate: 0 -50%;
+    width: 6px;
+    height: 6px;
+    color: var(--rose);
+    z-index: 2;
+    pointer-events: none;
+
+    &::before {
+      content: "*";
+      position: absolute;
+      top: 50%;
+      translate: 0 calc(-50% + 3px);
+      left: -16px;
+    }
+  }
+}
+
+.input:has([required])>input:not(:placeholder-shown)+.star {
+  display: none;
+}
+
+.inputs>textarea {
+  resize: none;
+  height: 207px;
+}
+
+.contactForm>button[type=submit] {
+  outline: none;
+  border: none;
+  padding: 16px 48px;
+  border-radius: 4px;
+  background-color: var(--dark-tomato);
+  border: solid 2px var(--dark-tomato);
+  color: var(--white);
+  font-size: 1rem;
+  font-weight: 500;
+  align-self: flex-end;
+  transition: background-color .1s, color .1s;
+
+  &:hover {
+    background-color: var(--white);
+    color: var(--dark-tomato);
+  }
+}
+
+@include medium {
+  .contactForm>button[type=submit] {
+    padding: 12px 32px;
+    font-size: .9rem;
+  }
+}

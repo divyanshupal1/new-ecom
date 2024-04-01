@@ -1,0 +1,42 @@
+{
+  "name": "vite-clone",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "update": "npm-check-updates",
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@reduxjs/toolkit": "^2.2.1",
+    "autoprefixer": "^10.4.19",
+    "axios": "^1.6.7",
+    "npm-check-updates": "^16.14.15",
+    "postcss": "^8.4.38",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-helmet-async": "^2.0.4",
+    "react-redux": "^9.1.0",
+    "react-router-dom": "^6.22.1",
+    "react-uuid": "^2.0.0",
+    "router-dom": "^2.2.11",
+    "sass": "^1.71.0",
+    "swiper": "^11.0.6",
+    "uuid": "^9.0.1",
+    "web-vitals": "^3.5.2"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.57",
+    "@types/react-dom": "^18.2.19",
+    "@vitejs/plugin-react-swc": "^3.6.0",
+    "eslint": "^8.56.0",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.5",
+    "gh-pages": "^6.1.1",
+    "vite": "^5.1.3"
+  }
+}

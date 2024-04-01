@@ -1,0 +1,40 @@
+@import "../../../Styles/mixins.scss";
+
+.sizes {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.sizes>span {
+  display: block;
+  font: 400 1.25rem "Inter", sans-serif;
+  letter-spacing: .03rem;
+  margin-right: 10px;
+}
+
+.sizes .sizesWrapper {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.sizes .sizesWrapper .size {
+  font-weight: 500;
+  font-size: 875rem;
+  font-size: 14px;
+  font-weight: 500;
+  border: 1px solid #00000080;
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  user-select: none;
+  cursor: pointer;
+  @include center-x-y;
+
+  &.active {
+    border-color: var(--dark-tomato);
+    background-color: var(--dark-tomato);
+    color: var(--white);
+  }
+}

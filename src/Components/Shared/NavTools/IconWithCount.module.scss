@@ -1,0 +1,42 @@
+.link {
+  border: none;
+  outline: none;
+  position: relative;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+
+  &:not(:last-child) {
+    margin-right: 16px;
+  }
+}
+
+.wrapper {
+  width: inherit;
+  height: inherit;
+}
+
+.link svg {
+  width: inherit;
+  height: inherit;
+  transition: fill .2s;
+}
+
+.count {
+  display: inline-block;
+  position: absolute;
+  left: 4px;
+  top: -12px;
+  background-color: var(--dark-tomato);
+  color: var(--white);
+  border-radius: 50%;
+  font-size: .6rem;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  z-index: 2;
+  transform: scale(.6);
+}

@@ -1,0 +1,86 @@
+@import "../../Styles/mixins.scss";
+
+.wishListPage {
+  margin: var(--page-margin);
+}
+
+.wishList {
+  margin-bottom: 80px;
+}
+
+.wishList>header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 50px;
+}
+
+.wishList>header>label {
+  font-size: 1.25rem;
+}
+
+@include small {
+  .wishList>header>label {
+    font-size: 1rem;
+  }
+}
+
+.wishList>header>button {
+  background-color: transparent;
+  outline: none;
+  padding: 16px 48px;
+  border-radius: 4px;
+  border: 1px solid #00000080;
+  font-weight: 500;
+  transition: background-color .1s, color .1s;
+
+  &:hover {
+    color: var(--white);
+    border-color: var(--very-dark-gray);
+    background-color: var(--very-dark-gray);
+  }
+}
+
+@include small {
+  .wishList>header>button {
+    padding: 12px 30px;
+    font-size: .9rem;
+  }
+}
+
+.forYou>header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 50px;
+
+  &>div>* {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0 !important;
+  }
+}
+
+.forYou>header>a {
+  background-color: transparent;
+  outline: none;
+  padding: 16px 48px;
+  border-radius: 4px;
+  border: 1px solid #00000080;
+  font-weight: 500;
+  color: var(--black);
+  transition: background-color .1s, color .1s;
+
+  &:hover {
+    color: var(--white);
+    border-color: var(--very-dark-gray);
+    background-color: var(--very-dark-gray);
+  }
+}
+
+@include small {
+  .forYou>header>a {
+    padding: 12px 30px;
+    font-size: .9rem;
+  }
+}

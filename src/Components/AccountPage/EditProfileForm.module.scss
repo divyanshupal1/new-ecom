@@ -1,0 +1,141 @@
+@import "../../Styles/mixins.scss";
+
+.profileForm {
+  box-shadow: 0 1px 13px 0 #0000000D;
+  width: 920px;
+  border-radius: 4px;
+  padding: 40px 70px 30px 70px;
+  display: flex;
+  flex-direction: column;
+}
+
+@include medium {
+  .profileForm {
+    padding: 30px;
+  }
+}
+
+@include small {
+  .profileForm {
+    padding: 20px;
+  }
+}
+
+.profileForm>h2 {
+  color: var(--dark-tomato);
+  font-weight: 500;
+  font-size: 1.25rem;
+  margin-bottom: 20px;
+}
+
+.inputs {
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+  margin-bottom: 30px;
+}
+
+.wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px 40px;
+}
+
+@include large {
+  .wrapper {
+    gap: 20px;
+  }
+}
+
+.inputs .input {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex: 1;
+}
+
+.inputs .input>label {
+  cursor: pointer;
+}
+
+.inputs .input>input {
+  border: none;
+  outline: none;
+  background-color: var(--very-light-gray2);
+  border: solid 2px var(--very-light-gray2);
+  border-radius: 4px;
+  padding: 13px 16px;
+  transition: border-color .2s;
+
+  &:hover,
+  &:focus {
+    border-color: var(--medium-light-gray);
+  }
+
+  &[class=invalid] {
+    background-color: #ffdada;
+    border-color: var(--red);
+
+    &::placeholder {
+      color: var(--primary);
+    }
+  }
+}
+
+.inputs .input>input::placeholder {
+  color: var(--dark-gray);
+}
+
+.passwordInputs {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.buttons {
+  align-self: flex-end;
+}
+
+.cancelLink {
+  background-color: transparent;
+  outline: none;
+  border: none;
+  padding: 4px;
+  margin-right: 16px;
+  color: var(--black);
+
+  &:hover {
+    color: var(--dark-tomato);
+  }
+}
+
+@include small {
+  .cancelLink {
+    font-size: .9rem;
+  }
+}
+
+.submitButton {
+  outline: none;
+  border: none;
+  padding: 16px 48px;
+  border-radius: 4px;
+  background-color: var(--dark-tomato);
+  border: solid 2px var(--dark-tomato);
+  color: var(--white);
+  font-weight: 500;
+  font-size: 1rem;
+  transition: background-color .1s, color .1s;
+
+  &:hover {
+    background-color: var(--white);
+    color: var(--dark-tomato);
+  }
+}
+
+@include medium {
+  .submitButton {
+    padding: 12px 34px;
+    font-size: .9rem;
+  }
+}

@@ -1,0 +1,21 @@
+.input {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.input>label {
+  color: #595959;
+}
+
+.redStar {
+  color: var(--red);
+}
+
+.input>input {
+  outline: none;
+  border: none;
+  background-color: var(--very-light-gray2);
+  border-radius: 4px;
+  padding: 14px 12px;
+}

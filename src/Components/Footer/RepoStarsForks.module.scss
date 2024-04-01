@@ -1,0 +1,57 @@
+.repoStarsForks {
+  text-decoration: none;
+  position: absolute;
+  bottom: 12px;
+  left: 4px;
+  display: flex;
+  align-items: center;
+  user-select: none;
+  padding: 4px 10px;
+  outline-offset: -2px;
+  transition: outline-offset .2s, outline-color .2s .1s;
+
+  &:focus-visible {
+    outline: dashed 3px var(--gray-blue);
+    outline-color: var(--blue);
+    outline-offset: 0;
+  }
+}
+
+.repoStarsForks .wrapper {
+  display: flex;
+  align-items: center;
+
+  &:not(:last-child) {
+    margin-right: 10px;
+  }
+}
+
+.repoStarsForks:hover .wrapper {
+  outline-color: var(--blue);
+}
+
+.repoStarsForks svg {
+  width: 20px;
+  height: 20px;
+  fill: var(--gray-blue);
+  margin-right: 4px;
+  transition: .1s color;
+}
+
+.number {
+  display: inline-block;
+  color: var(--gray-blue);
+  font-size: 1.1rem;
+  transition: .1s color;
+}
+
+.repoStarsForks .wrapper:nth-child(2) svg {
+  width: 15px;
+  height: 15px;
+  fill: var(--gray-blue);
+}
+
+.repoStarsForks:hover :where(svg, .number) {
+  color: var(--blue) !important;
+  fill: var(--blue) !important;
+}

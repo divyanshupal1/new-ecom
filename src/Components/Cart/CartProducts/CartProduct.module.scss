@@ -1,0 +1,46 @@
+@import "../../../Styles/mixins.scss";
+
+.productContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.product {
+  display: flex;
+  align-items: center;
+  width: 260px !important;
+}
+
+.product .removeButton {
+  border: none;
+  outline: none;
+  background-color: var(--tomato);
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  @include center-x-y;
+  position: absolute;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+}
+
+.removeButton>svg {
+  width: 12px;
+  height: 12px;
+  fill: var(--white)
+}
+
+.imgHolder {
+  width: fit-content;
+  height: fit-content;
+  user-select: none;
+  position: relative;
+}
+
+.product img {
+  width: 54px;
+  margin-right: 20px;
+}

@@ -1,0 +1,15 @@
+@import "../../../Styles/mixins.scss";
+
+.colors {
+  display: flex;
+  align-items: center;
+  margin-bottom: 18px;
+  gap: 15px;
+}
+
+.colors>span {
+  display: block;
+  font: 400 1.25rem "Inter", sans-serif;
+  letter-spacing: .03rem;
+  margin-right: 10px;
+}

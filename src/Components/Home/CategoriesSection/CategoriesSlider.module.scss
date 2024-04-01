@@ -1,0 +1,60 @@
+@import "../../../Styles/mixins";
+
+.categoriesSlider {
+  display: flex;
+  overflow: auto hidden;
+  scrollbar-width: none;
+  margin-bottom: 180px;
+  position: relative;
+}
+
+@include small {
+  .categoriesSlider {
+    margin-bottom: 100px;
+  }
+}
+
+.categoriesSlider::-webkit-scrollbar {
+  display: none;
+}
+
+// [Category Cards]
+.categoriesSlider>* {
+  flex: 0 0 auto;
+  width: calc(((100% / 6) - 30px) + (30px / 6));
+  margin-right: 30px;
+}
+
+@media (max-width: 1500px) {
+  .categoriesSlider>* {
+    width: calc(((100% / 5) - 30px) + (30px / 5));
+  }
+}
+
+@include large {
+  .categoriesSlider>* {
+    width: calc(((100% / 4) - 30px) + (30px / 4));
+  }
+}
+
+@include medium {
+  .categoriesSlider>* {
+    width: calc(((100% / 3) - 30px) + (30px / 3));
+  }
+}
+
+@media (max-width: 760px) {
+  .categoriesSlider>* {
+    width: calc(((100% / 2) - 30px) + (30px / 2));
+  }
+}
+
+@media (max-width: 470px) {
+  .categoriesSlider>* {
+    width: 100%;
+  }
+}
+
+.categoriesSlider>*:last-child {
+  margin-right: 0;
+}

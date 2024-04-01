@@ -1,0 +1,115 @@
+@import "../../../Styles/mixins";
+
+.sectionsMenuButton {
+  position: absolute;
+  left: 20px;
+  top: 102px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  display: none;
+  z-index: 2;
+  transition: opacity .2s;
+
+  &:hover {
+    opacity: .7;
+  }
+}
+
+@include large {
+  .sectionsMenuButton {
+    display: block;
+  }
+}
+
+@include very-small {
+  .sectionsMenuButton {
+    left: 10px;
+  }
+}
+
+.sectionsMenuButton>svg {
+  width: 25px;
+  height: 25px;
+}
+
+.sectionsMenu {
+  width: 250px;
+  max-height: 404px;
+  display: flex;
+  flex-direction: column;
+  padding-right: 10px;
+  overflow-y: auto;
+}
+
+.sectionsMenu::-webkit-scrollbar {
+  background-color: transparent;
+  width: 6px !important;
+}
+
+.sectionsMenu::-webkit-scrollbar-thumb {
+  background-color: #f2f2f2;
+  border-radius: 5px;
+
+  &:hover {
+    background-color: #e6e6e6;
+  }
+}
+
+@include large {
+  .sectionsMenu::-webkit-scrollbar {
+    width: 8px !important;
+  }
+  .sectionsMenu::-webkit-scrollbar-thumb {
+    background-color: #d0d0d0;
+    border-radius: 5px;
+
+    &:hover {
+      background-color: #bdbdbd;
+    }
+  }
+}
+
+@include large {
+  .sectionsMenu {
+    position: fixed;
+    left: -250%;
+    top: 0;
+    height: calc(100vh - (100vh - 100%));
+    max-height: none;
+    background-color: var(--white);
+    z-index: 1000;
+    padding: 18px;
+    box-shadow: 0 0 20px -15px var(--black);
+    overflow-y: auto;
+    width: fit-content;
+    transition: left .2s ease;
+
+    &.active {
+      left: 0;
+    }
+  }
+}
+
+.sectionsMenu>* {
+  color: var(--black);
+  cursor: pointer;
+  padding: 10px;
+}
+
+.dropDownMenu {
+  margin-top: 10px;
+}
+
+.dropDownMenu li {
+  padding: 10px 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dropDownMenu li a {
+  color: var(--black);
+  margin-top: 20px;
+}

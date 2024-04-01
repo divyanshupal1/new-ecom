@@ -1,0 +1,61 @@
+@import "../../../Styles/mixins.scss";
+
+.headerContent {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.iconHolder {
+  width: 40px;
+  height: 40px;
+  background-color: var(--dark-tomato);
+  @include center-x-y;
+  border-radius: 50%;
+}
+
+.iconHolder>svg {
+  width: 20px;
+  height: 20px;
+}
+
+.headerContent>b {
+  font-weight: 500;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.content>p {
+  font-size: .875rem;
+  color: var(--black);
+}
+
+.content>p>a {
+  color: var(--black);
+  position: relative;
+}
+
+.content>p>a:hover {
+  color: var(--black);
+
+  &::before {
+    color: var(--black);
+    opacity: 1;
+  }
+}
+
+.content>p>a::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  height: 1px;
+  width: 100%;
+  background-color: var(--black);
+  opacity: .5;
+}
