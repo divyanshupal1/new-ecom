@@ -1,55 +1,34 @@
-import { useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { newSignUp } from "../../Features/userSlice";
-import { simpleValidationCheck } from "../../Functions/componentsFunctions";
-import { uniqueArr } from "../../Functions/helper";
 import s from "./LogInForm.module.scss";
+import { useUserStore } from "../../store/useUserStore";
 
 const LogInForm = () => {
   const navigateTo = useNavigate();
-  const dispatch = useDispatch();
-  const { usersData } = useSelector((state) => state.user);
-  const emailOrPhone = useRef("moamalalaapro1@gmail.com");
-  const password = useRef("moamalalaapro123");
 
-  function login(e) {
-    const inputs = e.target.querySelectorAll("input");
-    e.preventDefault();
+  const {login} = useUserStore((state)=>({
+    login:state.login
+  }))
 
-    const isFormValid = simpleValidationCheck(inputs);
-    if (!isFormValid) return;
+  const [email, setEmail] = useState("");
+  const [password,setPassword] = useState("");
 
-    const dataByEmail = filterLoginByEmailOrPhone();
-    const isCorrectLoginData = checkLoginPassword(dataByEmail);
-
-    const formDataObj = new FormData(e.target);
-    const formData = {};
-
-    for (let pair of formDataObj.entries()) {
-      formData[pair[0]] = pair[1];
+  async function loginUser(e) {
+    e.preventDefault()  ;
+    const success = await login(email, password);
+    if(success){
+      navigateTo("/")
     }
-
-    if (isCorrectLoginData) {
-      const uniqueUsersData = uniqueArr(usersData);
-      dispatch(newSignUp(uniqueUsersData));
-      navigateTo("/", { replace: true });
+    else{
+      alert("Failed to login")
     }
+    
   }
 
-  function filterLoginByEmailOrPhone() {
-    return usersData?.filter(
-      (user) => user.emailOrPhone === emailOrPhone.current
-    );
-  }
 
-  function checkLoginPassword(filteredUsersData) {
-    const isPasswordValid = filteredUsersData[0]?.password === password.current;
-    return isPasswordValid;
-  }
 
   return (
-    <form className={s.form} onSubmit={login}>
+    <form className={s.form} onSubmit={loginUser}>
       <h2>Log in to Exclusive</h2>
       <p>Enter your details below</p>
 
@@ -57,14 +36,16 @@ const LogInForm = () => {
         <input
           type="text"
           name="emailOrPhone"
+          value={email}
           placeholder="Email or Phone Number"
-          onChange={(e) => (emailOrPhone.current = e.target.value)}
+          onChange={(e) => setEmail(e.target.value)}
         />
         <input
           type="password"
           name="Password"
+          value={password}
           placeholder="Password"
-          onChange={(e) => (password.current = e.target.value)}
+          onChange={(e) => setPassword(e.target.value)}
         />
       </div>
 

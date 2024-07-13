@@ -22,7 +22,7 @@ export const ROUTES_CONFIG = [
   { path: "/category", element: <ProductsCategoryPage /> },
   { path: "/products", element: <ProductsPage /> },
   { path: "/favorites", element: <FavoritePage /> },
-  { path: "/wishlist", element: <WishList /> },
+  // { path: "/wishlist", element: <WishList /> },
   { path: "/cart", element: <Cart /> },
   { path: "/checkout", element: <CheckoutPage /> },
   { path: "/signup", element: <SignUp /> },

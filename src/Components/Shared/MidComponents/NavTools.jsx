@@ -3,11 +3,26 @@ import IconWithCount from "../NavTools/IconWithCount";
 import SearchProductsInput from "../NavTools/SearchProductsInput";
 import UserMenuIcon from "../NavTools/UserMenuIcon";
 import s from "./NavTools.module.scss";
+import {useCartStore} from "../../../store/useCartStore";
+import {useUserStore} from "../../../store/useUserStore";
+import { useEffect } from "react";
 
 const NavTools = ({ showHeart = true, showCart = true, showUser = true }) => {
-  const { cartProducts, favoritesProducts } = useSelector(
-    (state) => state.products
-  );
+  
+  const { user,getUser  } = useUserStore((state) => ({
+    user: state.user,
+    getUser: state.getUser,
+  }));
+  const {cart,getCart} = useCartStore((state) => ({
+    cart: state.cart,
+    getCart: state.getCart,
+  }));
+
+  useEffect(()=>{
+    if(user?.username!=undefined){
+      getCart()
+    }
+  },[user])
 
   return (
     <div className={s.navTools}>
@@ -16,19 +31,10 @@ const NavTools = ({ showHeart = true, showCart = true, showUser = true }) => {
       <div className={s.tools}>
         <IconWithCount
           props={{
-            visibility: showHeart,
-            iconName: "heart",
-            routePath: "/favorites",
-            countLength: favoritesProducts.length,
-            title: "favorite",
-          }}
-        />
-        <IconWithCount
-          props={{
             visibility: showCart,
             iconName: "cart3",
             routePath: "/cart",
-            countLength: cartProducts.length,
+            countLength: cart?.items?.length,
             title: "cart",
           }}
         />

@@ -3,21 +3,22 @@ import { useNavigate } from "react-router-dom";
 import { addToArray } from "../../../../Features/productsSlice";
 import SvgIcon from "../../MiniComponents/SvgIcon";
 import s from "./AddToCartButton.module.scss";
+import { useCartStore } from "../../../../store/useCartStore";
+import { useUserStore } from "../../../../store/useUserStore";
 
 const AddToCartButton = ({ product }) => {
   const navigateTo = useNavigate();
-  const dispatch = useDispatch();
-  const { cartProducts } = useSelector((state) => state.products);
-  const {
-    loginInfo: { isSignIn },
-  } = useSelector((state) => state.user);
+  
+  const {cart,addTOCart} = useCartStore((state)=>({ cart:state.cart,addTOCart:state.addTOCart }))
+  const {user} = useUserStore((state)=>({ user:state.user }))
 
   function addProductToCart() {
-    const isProductAlreadyExist = cartProducts.includes(product);
-    if (!isSignIn) navigateTo("/signup");
+    const isProductAlreadyExist = cart?.items?.filter((item) => item._id === product._id).length > 0;
+    if (user==null) navigateTo("/signup");
     if (isProductAlreadyExist) return;
 
-    dispatch(addToArray({ key: "cartProducts", value: product }));
+    addTOCart(product._id);
+    
   }
 
   return (

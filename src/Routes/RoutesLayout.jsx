@@ -7,6 +7,7 @@ import GlobalOverlay from "../Components/Shared/MiniComponents/GlobalOverlay";
 import ScrollToTop from "../Components/Shared/MiniComponents/ScrollToTop";
 import SkipContentLink from "../Components/Shared/MiniComponents/SkipContentLink";
 import useCurrentSkipLinkId from "../Hooks/App/useCurrentSkipLinkId";
+import InitialDataLoad from "../Data/initialDataLoad";
 
 const RoutesLayout = () => {
   const skipLinkSectionId = useCurrentSkipLinkId()
@@ -14,6 +15,7 @@ const RoutesLayout = () => {
   return (
     <div className="App" tabIndex="-1">
       <SkipContentLink scrollTo={skipLinkSectionId} />
+      <InitialDataLoad />
       {/* <FirstHeader /> */}
       <Header />
       <MobileNav />

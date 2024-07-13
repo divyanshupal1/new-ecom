@@ -5,11 +5,11 @@ import PagesHistory from "../Shared/MiniComponents/PagesHistory";
 import AccountMenuSection from "./AccountMenuSection";
 import s from "./AccountPage.module.scss";
 import EditProfileForm from "./EditProfileForm";
+import { useUserStore } from "../../store/useUserStore";
 
 const AccountPage = () => {
-  const {
-    loginInfo: { username },
-  } = useSelector((state) => state.user);
+  
+  const {user} = useUserStore((state)=>({user: state.user}));
 
   return (
     <>
@@ -23,7 +23,7 @@ const AccountPage = () => {
             <PagesHistory history={["/", "My Account"]} />
 
             <p className={s.welcomeMessage}>
-              Welcome! <Link to="/profile">{username}</Link>
+              Welcome! <Link to="/profile">{user?.username}</Link>
             </p>
           </div>
 

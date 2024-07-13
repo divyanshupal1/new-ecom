@@ -15,7 +15,7 @@ const ProductCard = ({
     showDiscount: true,
     showFavIcon: true,
     showDetailsIcon: true,
-    showRemoveIcon: false,
+    showRemoveIcon: true,
     showNewText: false,
     showWishList: true,
     showColors: false,
@@ -24,15 +24,14 @@ const ProductCard = ({
 }) => {
   const {
     name,
+    category,
     price,
-    discount,
-    afterDiscount,
-    img,
-    rate,
-    votes,
-    id,
-    addedDate,
-    colors,
+    stock,
+    description,
+    mainImage,
+    subImages,
+    variants,
+    _id,
   } = product;
   const {
     stopHover,
@@ -45,61 +44,22 @@ const ProductCard = ({
     showColors,
   } = customization;
   const noHoverClass = stopHover ? s.noHover : "";
-  const hideDiscountClass = discount <= 0 || !showDiscount ? s.hide : "";
-  const hideNewClass = shouldHideNewWord();
+  // const hideDiscountClass = discount <= 0 || !showDiscount ? s.hide : "";
+  // const hideNewClass = shouldHideNewWord();
   const navigateTo = useNavigate();
-  const dispatch = useDispatch();
-  const { favoritesProducts, wishList } = useSelector(
-    (state) => state.products
-  );
-  const {
-    loginInfo: { isSignIn },
-  } = useSelector((state) => state.user);
-  const isAddedToWishList = wishList?.find(
-    (wishProduct) => wishProduct.id === id
-  );
-  const isAddedToFavorites = favoritesProducts?.find(
-    (favProduct) => favProduct.id === id
-  );
 
-  function shouldHideNewWord() {
-    return checkDateBeforeMonthToPresent(addedDate) || !showNewText
-      ? s.hide
-      : "";
-  }
-
-  function addProductToFavorite() {
-    const isProductAlreadyExist = favoritesProducts.includes(product);
-    if (!isSignIn) navigateTo("/signup");
-    if (isProductAlreadyExist) {
-      dispatch(removeById({ key: "favoritesProducts", id: product.id }));
-      return;
-    }
-
-    dispatch(addToArray({ key: "favoritesProducts", value: product }));
-  }
 
   function navigateToProductDetails() {
-    navigateTo(`/details?product=${name.toLowerCase()}`);
+    navigateTo(`/details?product=${_id}`);
   }
 
-  function addProductToWishList() {
-    const isProductAlreadyExist = wishList.includes(product);
-    if (!isSignIn) navigateTo("/signup");
-    if (isProductAlreadyExist) {
-      dispatch(removeById({ key: "wishList", id: product.id }));
-      return;
-    }
-
-    dispatch(addToArray({ key: "wishList", value: product }));
-  }
 
   return (
     <div className={`${s.card} ${noHoverClass}`}>
       <div className={s.productImg}>
         <div className={s.imgHolder}>
           <img
-            src={img}
+            src={mainImage}
             alt={name}
             aria-label={name}
             onClick={navigateToProductDetails}
@@ -107,29 +67,31 @@ const ProductCard = ({
         </div>
 
         <div className={s.layerContent}>
-          {hideNewClass && (
+          {/* {hideNewClass && (
             <div className={`${s.discount} ${hideDiscountClass}`}>
               -{discount}%
             </div>
-          )}
+          )} */}
 
-          <div className={`${s.new} ${hideNewClass}`}>New</div>
+          {/* <div className={`${s.new} ${hideNewClass}`}>New</div> */}
 
           <div className={s.icons}>
-            {showFavIcon && (
+            {/* {showFavIcon && (
               <button
                 type="button"
-                className={`${s.iconHolder} ${s.favIcon} ${
-                  isAddedToFavorites ? s.active : ""
-                }`}
-                onClick={addProductToFavorite}
+                className={`${s.iconHolder} ${s.favIcon} 
+                ${""
+                  // isAddedToFavorites ? s.active : ""
+                }
+                `}
+                onClick={()=>{}}
                 aria-label="Favorite"
               >
                 <div className={s.heartBackground}></div>
                 <SvgIcon name="heart" />
                 <ToolTip top="18px" left="-44px" content="Favorite" />
               </button>
-            )}
+            )} */}
 
             {showDetailsIcon && (
               <Link
@@ -147,26 +109,26 @@ const ProductCard = ({
                 type="button"
                 className={`${s.iconHolder} ${s.removeIcon}`}
                 aria-label={`Remove from ${removeFrom}`}
-                onClick={() => dispatch(removeById({ key: removeFrom, id }))}
+                onClick={() => {}}
               >
                 <SvgIcon name="trashCan" />
                 <ToolTip top="18px" left="-41px" content="Remove" />
               </button>
             )}
 
-            {showWishList && (
+            {/* {showWishList && (
               <button
                 type="button"
-                className={`${s.iconHolder} ${s.wishListIcon} ${
-                  isAddedToWishList ? s.active : ""
+                className={`${s.iconHolder} ${s.wishListIcon} ${""
+                  // isAddedToWishList ? s.active : ""
                 }`}
-                onClick={addProductToWishList}
+                onClick={()=>{}}
                 aria-label="Add to wishlist"
               >
                 <SvgIcon name="save" />
                 <ToolTip top="18px" left="-41px" content="Wishlist" />
               </button>
-            )}
+            )} */}
           </div>
 
           <AddToCartButton hoverDataAttribute={true} product={product} />

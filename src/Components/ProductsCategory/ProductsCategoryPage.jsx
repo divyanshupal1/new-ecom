@@ -6,23 +6,32 @@ import CategoriesSection from "../Home/CategoriesSection/CategoriesSection";
 import PagesHistory from "../Shared/MiniComponents/PagesHistory";
 import ProductsCategory from "./ProductsCategory";
 import s from "./ProductsCategoryPage.module.scss";
+import { useCategoryStore } from "../../store/useCategoryStore";
+import useProductStore from "../../store/useProductStore";
+import { useEffect } from "react";
 
 const ProductsCategoryPage = () => {
-  const categoryType = useGetSearchParam("type");
+
+  const categoryId = useGetSearchParam("type");
+
+  const {categories} = useCategoryStore((state)=>({
+    categories:state.categories,
+  }))
+
 
   return (
     <>
       <Helmet>
-        <title>{categoryType}</title>
+        <title>{ capitalize(categories?.[categoryId]?.name)}</title>
       </Helmet>
 
       <div className="container">
         <main className={s.categoryPage}>
-          <PagesHistory history={["/", capitalize(categoryType)]} />
+          <PagesHistory history={["/", capitalize(categories?.[categoryId]?.name)]} />
 
           <section className={s.categoryContent}>
             <ProductsCategory
-              categoryName={categoryType}
+              categoryId={categoryId}
               customization={categoryProductsCustomizations}
             />
           </section>

@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import ProductPreview from "../ProductPreviw/ProductPreview";
 import ProductColorsSection from "./ProductColorsSection";
@@ -8,10 +8,13 @@ import ProductFeatures from "./ProductFeatures";
 import ProductFirstInfos from "./ProductFirstInfos";
 import ProductSizes from "./ProductSizes";
 
-const ProductDetails = ({ data }) => {
-  const { previewImg, isZoomInPreviewActive } = useSelector(
-    (state) => state.global
-  );
+const ProductDetails = ({ product }) => {
+
+  const [{ previewImg, isZoomInPreviewActive },setZoom] =  useState({
+    previewImg:product.mainImage,
+    isZoomInPreviewActive:false
+  })
+
   const zoomInImgRef = useRef();
   const activeClass = isZoomInPreviewActive ? s.active : "";
 
@@ -27,19 +30,19 @@ const ProductDetails = ({ data }) => {
 
   return (
     <section className={s.detailsSection}>
-      <ProductPreview data={data} handleZoomInEffect={handleZoomInEffect} />
+      <ProductPreview data={product} previewImg={previewImg} handleZoomInEffect={handleZoomInEffect} setOptions={setZoom}/>
 
       <section className={s.details}>
         <div className={`${s.zoomInPreview} ${activeClass}`}>
           <img src={previewImg} alt="product preview" ref={zoomInImgRef} />
         </div>
 
-        <ProductFirstInfos data={data} />
+        <ProductFirstInfos data={product} />
 
         <div className={s.horizontalLine} />
 
-        <ProductColorsSection data={data} />
-        <ProductSizes data={data} />
+        {/* <ProductColorsSection data={product} /> */}
+        {/* <ProductSizes data={product} /> */}
         <ProductDealingControls />
         <ProductFeatures />
       </section>

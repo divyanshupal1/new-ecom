@@ -4,29 +4,25 @@ import { useSearchParams } from "react-router-dom";
 import { updateState } from "../../../Features/globalSlice";
 import s from "./ProductPreview.module.scss";
 
-const ProductPreview = ({ data, handleZoomInEffect }) => {
-  const { previewImg } = useSelector((state) => state.global);
-  const dispatch = useDispatch();
-  const [searchParams] = useSearchParams();
-  const { img, name, otherImages } = data;
-  const hasOtherImages = otherImages?.length !== 0 && otherImages;
+const ProductPreview = ({ data, handleZoomInEffect , setOptions, previewImg}) => {
+
+  // const [searchParams] = useSearchParams();
+  const { mainIMage, name, subImages } = data;
+  const hasOtherImages = subImages?.length !== 0 && subImages;
 
   function setZoomInPreview(value = false) {
-    dispatch(updateState({ key: "isZoomInPreviewActive", value: value }));
+    setOptions((prev) => ({ ...prev, isZoomInPreviewActive: value }));
   }
 
   function setPreviewImg(img) {
-    dispatch(updateState({ key: "previewImg", value: img }));
+    setOptions((prev) => ({ ...prev, previewImg: img }));
   }
 
-  useEffect(() => {
-    setPreviewImg(img);
-  }, [searchParams]);
 
   return (
     <section className={s.images}>
       {hasOtherImages && (
-        <PreviewImages data={otherImages} setPreviewImg={setPreviewImg} />
+        <PreviewImages data={subImages} setPreviewImg={setPreviewImg} />
       )}
 
       <div className={s.previewImgHolder}>

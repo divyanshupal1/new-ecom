@@ -1,11 +1,11 @@
 import { useSelector } from "react-redux";
-import { Navigate, useLocation } from "react-router-dom";
+import { Navigate, useLocation, useParams } from "react-router-dom";
+import { useUserStore } from "../store/useUserStore";
+import useGetParams from "../Hooks/Helper/useGetParams";
 
 const RequiredAuth = ({ children }) => {
-  const userState = useSelector((state) => state.user);
-  const {
-    loginInfo: { isSignIn },
-  } = userState;
+  const params = useGetParams();
+  const {user} = useUserStore((state) => ({user: state.user}));
   const location = useLocation();
   const pathName = location.pathname;
   const isLoginOrSignUpPage = pathName === "/login" || pathName === "/signup";
@@ -17,11 +17,13 @@ const RequiredAuth = ({ children }) => {
     "/cart",
   ];
 
-  const isPageRequiringSignIn = (isPage) =>
-    pagesRequireSignIn.includes(isPage) && !isSignIn;
+  if (user===null) return children;
 
-  if (isLoginOrSignUpPage && isSignIn) return <Navigate to="/" />;
-  if (isPageRequiringSignIn(pathName)) return <Navigate to="/signup" />;
+  const isPageRequiringSignIn = (isPage) =>
+    pagesRequireSignIn.includes(isPage) && user?.username==undefined;
+
+  if (isLoginOrSignUpPage && user?.username!=undefined) return <Navigate to={params?.path||'/'}/>;
+  if (isPageRequiringSignIn(pathName)) return <Navigate to={"/signup?path="+pathName} />;
 
   return children;
 };

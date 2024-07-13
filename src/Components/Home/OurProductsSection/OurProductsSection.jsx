@@ -15,7 +15,7 @@ const OurProductsSection = () => {
       </div>
 
       <ExploreProducts
-        numOfProducts={7}
+        numOfProducts={8}
         customization={ourProductsCustomizations}
       />
 

@@ -3,7 +3,17 @@ import ProductColors from "../../MiniComponents/ProductColors";
 import s from "./ProductCardInfo.module.scss";
 
 const ProductCardInfo = ({ product, showColors, navigateToProductDetails }) => {
-  const { name, price, discount, afterDiscount, rate, votes, colors } = product;
+  const { 
+    name,
+    category,
+    price,
+    stock,
+    description,
+    mainImage,
+    subImages,
+    variants,
+    _id
+  } = product;
 
   return (
     <section className={s.productInfo}>
@@ -13,19 +23,19 @@ const ProductCardInfo = ({ product, showColors, navigateToProductDetails }) => {
         </a>
       </strong>
       <div className={s.price}>
-        ${afterDiscount}
-        {discount > 0 && <del className={s.afterDiscount}>${price}</del>}
+        ₹{price}
+        {/* {discount > 0 && <del className={s.afterDiscount}>${price}</del>} */}
       </div>
 
       <div className={s.rateContainer}>
-        <RateStars rate={rate} />
+        {/* <RateStars rate={rate} /> */}
 
-        <span className={s.numOfVotes}>({votes})</span>
+        {/* <span className={s.numOfVotes}>({votes})</span> */}
       </div>
 
       {showColors && (
         <div className={s.colors}>
-          <ProductColors colors={colors} />
+          {/* <ProductColors colors={colors} /> */}
         </div>
       )}
     </section>

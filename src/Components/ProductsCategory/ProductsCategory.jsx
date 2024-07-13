@@ -4,12 +4,22 @@ import { productsData } from "../../Data/productsData";
 import ProductCard from "../Shared/ProductsCards/ProductCard";
 import s from "./ProductsCategory.module.scss";
 import useScrollOnMount from "../../Hooks/App/useScrollOnMount";
+// import { useCategoryStore } from "../../store/useCategoryStore";
+import useProductStore from "../../store/useProductStore";
 
-const ProductsCategory = ({ categoryName, customization }) => {
-  const categoryProducts = productsData.filter(
-    (product) => product.category === categoryName
-  );
-  const hasNoProducts = categoryProducts.length === 0;
+const ProductsCategory = ({ categoryId, customization }) => {
+
+  const {products,fetchProductsByCategory} = useProductStore((state)=>({ 
+    products:state.categoryProducts,
+    fetchProductsByCategory:state.fetchProductsByCategory
+  }))
+
+  useEffect(() => {
+    fetchProductsByCategory(categoryId,1,10)
+  }, [categoryId]);
+
+  console.log(products)
+  const hasNoProducts = products?.length === 0;
   useScrollOnMount(200)
 
   if (hasNoProducts)
@@ -24,10 +34,10 @@ const ProductsCategory = ({ categoryName, customization }) => {
 
   return (
     <div className={s.products}>
-      {categoryProducts?.map((product) => (
+      {products?.map((product) => (
         <ProductCard
           product={product}
-          key={product.id}
+          key={product._id}
           customization={customization}
         />
       ))}

@@ -29,9 +29,9 @@ const Home = () => {
             <MainSlider />
           </div>
 
-          <TodaySection />
+          {/* <TodaySection /> */}
           <CategoriesSection />
-          <ThisMonthSection />
+          {/* <ThisMonthSection /> */}
           <ProductPoster />
           <OurProductsSection />
           <FeaturedSection />

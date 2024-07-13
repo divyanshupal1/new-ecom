@@ -7,15 +7,36 @@ import PagesHistory from "../Shared/MiniComponents/PagesHistory";
 import ProductDetails from "./ProductDetails/ProductDetails";
 import s from "./ProductDetailsPage.module.scss";
 import RelatedItemsSection from "./RelatedItemsSection/RelatedItemsSection";
+import useProductStore from "../../store/useProductStore";
+import { useCategoryStore } from "../../store/useCategoryStore";
+import { useEffect, useState } from "react";
 
 const ProductDetailsPage = () => {
+
   useScrollOnMount(200);
-  const PRODUCT_NAME = useGetSearchParam("product");
-  const PRODUCT_DATA = productsData.filter(
-    (product) => product.name.toLowerCase() === PRODUCT_NAME
-  )?.[0];
-  const { name, category, shortName } = PRODUCT_DATA;
-  const history = ["Account", capitalize(category), name.toUpperCase()];
+
+  const PRODUCT_ID = useGetSearchParam("product");
+  const [product, setProduct] = useState(undefined)
+
+  const {fetchProductByID} = useProductStore((state)=>({fetchProductByID:state.fetchProductByID}))
+  const {categories,fetchCategories} = useCategoryStore((state)=>({
+    categories:state.categories,
+    fetchCategories:state.fetchCategories
+  }))  
+  useEffect(() => {
+    if (categories === undefined) fetchCategories();
+  }, [categories]);
+
+  const getProduct = async()=> {
+    const res =  await fetchProductByID(PRODUCT_ID)
+    setProduct(res)
+  }
+  useEffect(() => {
+    getProduct()
+  }, [PRODUCT_ID]);
+
+
+  const history = ["Account", capitalize(categories?.[product?.category]?.name), product?.name?.toUpperCase()];
   const historyPaths = [
     {
       index: 0,
@@ -23,24 +44,24 @@ const ProductDetailsPage = () => {
     },
     {
       index: 1,
-      path: `/category?type=${category}`,
+      path: `/category?type=${product?.category}`,
     },
   ];
 
   return (
     <>
       <Helmet>
-        <title>{shortName}</title>
+        <title>{product?.name}</title>
       </Helmet>
 
       <div className="container">
         <main className={s.detailsPage} id="details-page">
           <PagesHistory history={history} historyPaths={historyPaths} />
-          <ProductDetails data={PRODUCT_DATA} />
-          <RelatedItemsSection
+          { product!=undefined && <ProductDetails product={product} />}
+          {/* <RelatedItemsSection
             productType={category}
             currentProduct={PRODUCT_DATA}
-          />
+          /> */}
         </main>
       </div>
     </>

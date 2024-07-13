@@ -9,7 +9,7 @@ import Nav from "./Nav";
 
 const Header = () => {
   const dispatch = useDispatch();
-  const navToolsProps = useNavToolsProps();
+  // const navToolsProps = useNavToolsProps();
 
   function openMobileNav() {
     dispatch(toggleState({ key: "isMobileMenuActive", value: true }));
@@ -25,7 +25,7 @@ const Header = () => {
 
         <div className={s.headerContent}>
           <Nav />
-          <NavTools {...navToolsProps} />
+          <NavTools />
         </div>
 
         <button

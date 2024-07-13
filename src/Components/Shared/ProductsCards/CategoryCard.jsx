@@ -3,22 +3,22 @@ import SvgIcon from "../MiniComponents/SvgIcon";
 import s from "./CategoryCard.module.scss";
 
 const CategoryCard = ({ categoryData }) => {
-  const { iconName, title } = categoryData;
-  const categoryType = title.toLowerCase();
+  const { _id, name } = categoryData;
+  const categoryType = name.toLowerCase();
   const navigateTo = useNavigate();
 
   function navigateToCategory() {
-    navigateTo(`/category?type=${categoryType}`);
+    navigateTo(`/category?type=${_id}`);
   }
 
   return (
     <Link
       className={s.card}
-      title={title + " category"}
+      title={name + " category"}
       onClick={() => navigateToCategory(categoryType)}
     >
-      <SvgIcon name={iconName} />
-      <span>{title}</span>
+      {/* <SvgIcon name={iconName} /> */}
+      <span>{name}</span>
     </Link>
   );
 };

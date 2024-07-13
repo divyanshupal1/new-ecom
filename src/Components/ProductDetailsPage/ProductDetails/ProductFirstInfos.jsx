@@ -2,22 +2,22 @@ import RateStars from "../../Shared/MidComponents/RateStars";
 import s from "./ProductFirstInfos.module.scss";
 
 const ProductFirstInfos = ({ data }) => {
-  const { name, price, votes, rate, description } = data;
+  const { name, price, description } = data;
 
   return (
     <section className={s.firstInfos}>
       <b className={s.productName}>{name.toUpperCase()}</b>
 
       <section className={s.rateAndReviews}>
-        <RateStars rate={rate} />
-        <span className={s.reviews}>({votes} Reviews)</span>
+        {/* <RateStars rate={rate} /> */}
+        {/* <span className={s.reviews}>({votes} Reviews)</span> */}
         <div className={s.verticalLine} />
-        <span className={s.greenText}>In Stock</span>
+        {/* <span className={s.greenText}>In Stock</span> */}
       </section>
 
-      <span className={s.price}>${price}</span>
+      <span className={s.price}>₹{price}</span>
 
-      <p className={s.description}>{description}</p>
+      <p className={s.description} dangerouslySetInnerHTML={{__html:description}}></p>
     </section>
   );
 };

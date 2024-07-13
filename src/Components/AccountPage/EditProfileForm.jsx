@@ -9,50 +9,43 @@ import {
   checkPasswordInputs,
 } from "../../Functions/helper";
 import s from "./EditProfileForm.module.scss";
+import { useUserStore } from "../../store/useUserStore";
 
 const EditProfileForm = () => {
-  const { loginInfo } = useSelector((state) => state.user);
-  const dispatch = useDispatch();
-  const { username, emailOrPhone, password } = loginInfo;
-  const firstLastUserName = username.split(" ");
-  const [firstName, setFirstName] = useState(firstLastUserName[0]);
-  const [lastName, setLastName] = useState(firstLastUserName[1]);
-  const [emailOrPhoneState, setEmailOrPhoneState] = useState(emailOrPhone);
+  const {user,changePassword} = useUserStore((state)=>({
+    user: state.user,
+    changePassword: state.changePassword
+  }));
+console.log(user)
+
+  const [currPassword, setCurrPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const [newPasswordVerify, setNewPasswordVerify] = useState("");
   const formRef = useRef();
 
-  function handleSubmit(e) {
-    const emailInput = document.querySelector("#changeEmail");
-    const passwordInputs = formRef.current.querySelectorAll(
-      "input[type=password]"
-    );
+  async function handleSubmit(e) {
 
     e.preventDefault();
-    checkEmptyInputs({
-      exceptions: ["address", "currentPass", "newPass", "confirmPass"],
-      formRef: formRef,
-    });
-    checkEmailValidation(emailInput);
-    checkPasswordInputs(passwordInputs, password);
-    updateUserInfo();
+    checkEmptyInputs({exceptions:[""],formRef:formRef});
+    // checkEmailValidation(emailOrPhoneState);
+    const newPassInput = formRef.current.querySelector("#confirmPass");
+    if(newPassword!==newPasswordVerify){
+      newPassInput.classList.add("invalid");
+    }
+    else{
+      newPassInput.classList.remove("invalid");
+    }
+    const res =  await changePassword(currPassword,newPassword);
+    if(res===true){
+      alert("Password changed successfully");
+    }
+    else{
+      alert("Password change failed");
+    }
+      
+
   }
 
-  function updateUserInfo() {
-    const formEle = formRef.current;
-    const inputs = formEle.querySelectorAll("input");
-    const isFormValid = checkIsInputsValid(inputs);
-
-    if (!isFormValid) return;
-
-    const updatedUserData = {
-      username: `${inputs[0].value} ${inputs[1].value}`,
-      emailOrPhone: inputs[2].value,
-      password: inputs[5].value,
-    };
-
-    if (updatedUserData.password === "") delete updatedUserData.password;
-    dispatch(updateUserData({ userInfo: updatedUserData }));
-  }
 
   return (
     <form
@@ -66,24 +59,13 @@ const EditProfileForm = () => {
       <section className={s.inputs}>
         <section className={s.wrapper}>
           <div className={s.input}>
-            <label htmlFor="firstName">First Name</label>
+            <label htmlFor="firstName">Username</label>
             <input
               type="text"
               name="firstName"
               id="firstName"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-            />
-          </div>
-
-          <div className={s.input}>
-            <label htmlFor="lastName">Last Name</label>
-            <input
-              type="text"
-              name="lastName"
-              id="lastName"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
+              disabled
+              value={user?.username}
             />
           </div>
 
@@ -93,24 +75,16 @@ const EditProfileForm = () => {
               type="text"
               name="emailOrPhone"
               id="changeEmail"
+              disabled
               placeholder="example@gmail.com"
-              value={emailOrPhoneState}
-              onChange={(e) => setEmailOrPhoneState(e.target.value)}
+              value={user?.email}
             />
           </div>
 
-          <div className={s.input}>
-            <label htmlFor="address">Address</label>
-            <input
-              type="text"
-              name="address"
-              id="address"
-              placeholder="EX Kingston, 5236, United State"
-            />
-          </div>
         </section>
 
         <section className={s.passwordInputs}>
+          
           <div className={s.input}>
             <label htmlFor="currentPass">Password Changes</label>
             <input
@@ -118,6 +92,8 @@ const EditProfileForm = () => {
               name="currentPass"
               id="currentPass"
               placeholder="Current Password"
+              value={currPassword}
+              onChange={(e) => setCurrPassword(e.target.value)}
             />
           </div>
 
@@ -138,6 +114,8 @@ const EditProfileForm = () => {
               name="confirmPass"
               id="confirmPass"
               placeholder="Confirm New Password"
+              value={newPasswordVerify}
+              onChange={(e) => setNewPasswordVerify(e.target.value)}
             />
           </div>
         </section>

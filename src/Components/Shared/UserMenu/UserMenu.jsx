@@ -34,12 +34,12 @@ const UserMenu = ({ isActive }) => {
         <span>My Cancellations</span>
       </Link>
 
-      <Link to="/reviews">
+      {/* <Link to="/reviews">
         <SvgIcon name="solidStar" />
         <span>My Reviews</span>
-      </Link>
+      </Link> */}
 
-      <Link to="/wishlist">
+      {/* <Link to="/wishlist">
         <UserMenuItemWithCount
           props={{
             iconName: "save",
@@ -47,7 +47,7 @@ const UserMenu = ({ isActive }) => {
             countLength: wishListLength,
           }}
         />
-      </Link>
+      </Link> */}
 
       <Link onClick={handleSignOut}>
         <SvgIcon name="boxArrowLeft" />

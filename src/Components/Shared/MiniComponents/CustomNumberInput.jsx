@@ -6,78 +6,40 @@ import {
 import { updateState } from "../../../Features/productsSlice";
 import s from "./CustomNumberInput.module.scss";
 import SvgIcon from "./SvgIcon";
+import { useCartStore } from "../../../store/useCartStore";
 
 const CustomNumberInput = ({ product, quantity }) => {
-  const { cartProducts } = useSelector((state) => state.products);
-  const dispatch = useDispatch();
+  const { _id } = product;
+  const {removeItem,addTOCart} = useCartStore((state)=>({
+    removeItem:state.removeItem,
+    addTOCart:state.addTOCart
+  }))
 
-  function handleUpdateQuantity(state) {
-    const isDecrease = state === "decrease";
-    const updatedProduct = { ...product };
-    const isBelowMinimum = quantity <= MINIMUM_QUANTITY && isDecrease;
-    const isAboveMaximum = quantity >= MAXIMUM_QUANTITY && !isDecrease;
-
-    if (isBelowMinimum || isAboveMaximum) return;
-
-    updatedProduct.quantity += isDecrease ? -1 : 1;
-    updateProductQuantity(updatedProduct);
+  const increment = () => {
+    addTOCart(_id,quantity+1)
   }
-
-  function handleChangeQuantityInput(e) {
-    const inputValue = parseInt(e.target.value);
-    const updatedProduct = { ...product };
-
-    if (isNaN(inputValue)) return;
-
-    const isBelowMinimum = inputValue < MINIMUM_QUANTITY;
-    const isAboveMaximum = inputValue > MAXIMUM_QUANTITY;
-
-    if (isBelowMinimum) {
-      updatedProduct.quantity = MINIMUM_QUANTITY;
-    } else if (isAboveMaximum) {
-      updatedProduct.quantity = MAXIMUM_QUANTITY;
-    } else {
-      updatedProduct.quantity = inputValue;
-    }
-
-    updateProductQuantity(updatedProduct);
-    return updatedProduct.quantity;
-  }
-
-  function updateProductQuantity(updatedProduct) {
-    const indexToUpdate = cartProducts.findIndex(
-      (item) => item.id == updatedProduct.id
-    );
-
-    if (indexToUpdate === -1) return;
-
-    const updatedCartProducts = [...cartProducts];
-    updatedCartProducts[indexToUpdate] = updatedProduct;
-
-    dispatch(
-      updateState({
-        key: "cartProducts",
-        value: updatedCartProducts,
-      })
-    );
+  const decrement = () => {
+    if(quantity==1) removeItem(_id)
+    else addTOCart(_id,quantity-1)
   }
 
   return (
     <div className={s.numberInput}>
       <input
         type="number"
+        disabled
         value={quantity}
-        onChange={(e) => handleChangeQuantityInput(e)}
-        min={MINIMUM_QUANTITY}
-        max={MAXIMUM_QUANTITY}
+        // onChange={(e) => handleChangeQuantityInput(e)}
+        min={1}
+        max={product?.stock || MAXIMUM_QUANTITY}
       />
 
       <div className={s.buttons}>
-        <button type="button" onClick={() => handleUpdateQuantity("increase")}>
+        <button type="button" onClick={increment}>
           <SvgIcon name="arrowUp" />
         </button>
 
-        <button type="button" onClick={() => handleUpdateQuantity("decrease")}>
+        <button type="button" onClick={decrement}>
           <SvgIcon name="arrowUp" />
         </button>
       </div>
